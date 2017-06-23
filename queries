@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Prueba",
+    "database": "mongo",
+    "description":
+      "como le meto parámetro",
+    "query": "pedrito.find({\"fecha\":\"PARAMETER\"},{\"numero\":1})"
+  }
+]
