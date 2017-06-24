@@ -35,7 +35,7 @@ postgresdb = psycopg2.connect(
 '''
 
 #Cambiar por Path Absoluto en el servidor
-# QUERIES_FILENAME = 'var/www/FlaskDB/flaskr/queries'
+# QUERIES_FILENAME = 'var/www/FlaskDB/queries'
 QUERIES_FILENAME = 'queries'
 
 
@@ -55,63 +55,53 @@ def home():
             pairs = []
             for x in json_file:
                 if "PARAMETER1" in x["query"]:
-                    dia = request.form['dia']
-                    mes = request.form['mes']
-                    ano = request.form['ano']
-                    mes = str(mes)
-                    if len(mes) < 2:
-                        mes = "0" + mes
-                    dia = str(dia)
-                    if len(dia) < 2:
-                        dia = "0" + dia
-                    ano = str(ano)
-                    param = "{}-{}-{}".format(ano, mes, dia)
-                    # print(param)
-                    pairs.append((x["name"],
-                      x["database"],
-                      x["description"],
-                      param.join(x["query"].split("PARAMETER1"))))
-                    # print(x["query"])
-                    # print(param.join(x["query"].split("PARAMETER1")))
-                    print(pairs[-1][-1])
+                    try:
+                        dia = request.form['dia']
+                        mes = request.form['mes']
+                        ano = request.form['ano']
+                        mes = str(mes)
+                        if len(mes) < 2:
+                            mes = "0" + mes
+                        dia = str(dia)
+                        if len(dia) < 2:
+                            dia = "0" + dia
+                        ano = str(ano)
+                        param = "{}-{}-{}".format(ano, mes, dia)
+                        pairs.append((x["name"],
+                          x["database"],
+                          x["description"],
+                          param.join(x["query"].split("PARAMETER1"))))
+                    except Exception as e:
+                        print(e)
                 elif "PARAMETER2" in x["query"]:
-                    param = request.form['text']
-                    param2 = request.form['text2']
-                    aux = param.join(x["query"].split("PARAMETER2"))
-                    aux = param2.join(aux.split("PARAMETER3"))
-                    pairs.append((x["name"],
-                      x["database"],
-                      x["description"],
-                      aux))
+                    try:
+                        param = request.form['text']
+                        param2 = request.form['text2']
+                        aux = param.join(x["query"].split("PARAMETER2"))
+                        aux = param2.join(aux.split("PARAMETER3"))
+                        pairs.append((x["name"],
+                          x["database"],
+                          x["description"],
+                          aux))
+                    except Exception as e:
+                        print(e)
                 else:
-                    param = request.form['text3']
-                    pairs.append((x["name"],
-                      x["database"],
-                      x["description"],
-                      param.join(x["query"].split("PARAMETER3"))))
+                    try:
+                        param = request.form['text3']
+                        pairs.append((x["name"],
+                          x["database"],
+                          x["description"],
+                          param.join(x["query"].split("PARAMETER3"))))
+                    except Exception as e:
+                        print(e)
 
-
-            # pairs = [(x["name"],
-            #           x["database"],
-            #           x["description"],
-            #           param.join(x["query"].split("PARAMETER1"))) for x in json_file]
             return render_template('file.html', results=pairs)
 
 
 @app.route("/mongo", methods=['GET','POST'])
 def mongo():
     query = request.args.get("query")
-    if "PARAMETER1" in query:
-        query = query.split("PARAMETER1")
-        print(query)
-        try: #lo que debería pasar pero no pasa, porque form no tiene text, que está en file.html...
-            param = request.form['text']
-            # print(param)
-            query = param.join(query)
-        except KeyError: #el caso pa que no falle
-            print("YOLO")
-            query = "2016-10-24".join(query)
-
+    print(query)
     results = eval('mongodb.'+query)
     results = json_util.dumps(results, sort_keys=True, indent=4)
     if "find" in query:
@@ -136,4 +126,4 @@ def example():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

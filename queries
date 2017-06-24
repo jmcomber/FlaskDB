@@ -4,7 +4,7 @@
     "database": "mongo",
     "description":
       "Dada una fecha, todos los números para los que se tienen mensajes en esa fecha",
-    "query": "pedrito.find({\"fecha\":\"PARAMETER1\"},{\"numero\":1, _id:0})"
+    "query": "pedrito.find({\"fecha\":\"PARAMETER1\"},{\"numero\":1})"
   }, 
   {
     "name": "Últimos k mensajes",
@@ -18,6 +18,6 @@
     "database": "mongo",
     "description":
       "Dada una palabra clave, todos los JSON en los que aparece esa palabra clave en el contenido",
-    "query": "pedrito.find({$text: { $search: \"PARAMETER3\"}})"
+    "query": "pedrito.find({\"contenido\": {$regex:\"PARAMETER3\"}})"
   }
 ]
