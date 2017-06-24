@@ -91,7 +91,7 @@ def home():
                         pairs.append((x["name"],
                           x["database"],
                           x["description"],
-                          param.join(x["query"].split("PARAMETER3"))))
+                          param.join(x["query"].split("PARAMETER4"))))
                     except Exception as e:
                         print(e)
 
