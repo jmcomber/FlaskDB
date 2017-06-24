@@ -32,7 +32,16 @@
           <!-- <form action="." method="POST"> -->
             <div>
               <form method="POST">
-                <input type="text" name="text" id="yyy">
+              {% if 'fecha' in query %}
+                <input type="text" name="dia" placeholder="dia">
+                <input type="text" name="mes" placeholder="mes">
+                <input type="text" name="ano" placeholder="ano">
+                {% elif 'limit' in query %}
+                <input type="text" name="text" placeholder="numero">
+                <input type="text" name="text2" placeholder="k">
+                {% else %}
+                <input type="text" name="text3" placeholder="palabra">
+                {% endif %}
                 <input type="submit">
               </form>
             </div>
