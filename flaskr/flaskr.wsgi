@@ -8,6 +8,6 @@
         WSGIProcessGroup flaskr
         WSGIApplicationGroup %{GLOBAL}
         Order deny,allow
-        Allow from all
+        Require all granted
     </Directory>
 </VirtualHost>
