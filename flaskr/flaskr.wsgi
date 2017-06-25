@@ -7,7 +7,6 @@
     <Directory /var/www/FlaskDB/flaskr>
         WSGIProcessGroup flaskr
         WSGIApplicationGroup %{GLOBAL}
-        Order deny,allow
         Require all granted
     </Directory>
 </VirtualHost>

@@ -126,4 +126,4 @@ def example():
 
 
 if __name__ == "__main__":
-    app.run(host="146.155.13.137", debug=False)
+    app.run(host='0.0.0.0', debug=False)
