@@ -35,8 +35,8 @@ postgresdb = psycopg2.connect(
 '''
 
 #Cambiar por Path Absoluto en el servidor
-# QUERIES_FILENAME = 'var/www/FlaskDB/queries'
-QUERIES_FILENAME = 'queries'
+QUERIES_FILENAME = '/var/www/FlaskDB/queries'
+# QUERIES_FILENAME = 'queries'
 
 
 @app.route("/", methods=['GET','POST'])
@@ -126,4 +126,4 @@ def example():
 
 
 if __name__ == "__main__":
-    app.run(port=8080)
+    app.run()
