@@ -1,13 +1,5 @@
-<VirtualHost *>
-    ServerName query17-3.ing.puc.cl
+import sys
 
-    WSGIDaemonProcess flaskr user=algo group=algo threads=5
-    WSGIScriptAlias / /var/www/FlaskDB/flaskr/flaskr.wsgi
+sys.path.append('/var/www/FlaskDB/flaskr/')
 
-    <Directory /var/www/FlaskDB/flaskr>
-        WSGIProcessGroup flaskr
-        WSGIScriptReloading On
-        WSGIApplicationGroup %{GLOBAL}
-        Require all granted
-    </Directory>
-</VirtualHost>
+from flaskr import app as application
